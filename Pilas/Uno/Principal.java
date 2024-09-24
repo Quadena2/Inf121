@@ -59,4 +59,32 @@ public class Principal {
         pLibro.vaciar(pilaAux2);
         pLibro.vaciar(pilaAux1);
     }
+    public static void incisoC(PilaLibro pLibro){
+        PilaLibro pilaAux = new PilaLibro(100);
+        //pilaAux.adicionar(pLibro.eliminar());
+        //int sw = 0;
+        while (!pLibro.esVacia()){
+            Libro libro1 = new Libro();
+            libro1 = (Libro) pLibro.eliminar();
+            int anoLibro1 = libro1.getAnoPublicacion();
+
+                while (!pilaAux.esVacia()){
+                    Libro libro2 = new Libro();
+                    libro2 = (Libro) pilaAux.eliminar();
+                    int anoLibro2 = libro2.getAnoPublicacion();
+
+                    if(anoLibro1 < anoLibro2){
+                        pilaAux.adicionar(libro2);
+                        pilaAux.adicionar(libro1);
+                    }
+                    else {
+                        pLibro.adicionar(libro2);
+                    }
+                }
+
+            if(pilaAux.esVacia())
+                pilaAux.adicionar(libro1);
+        }
+        pLibro.vaciar(pilaAux);
+    }
 }
