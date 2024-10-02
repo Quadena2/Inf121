@@ -1,0 +1,77 @@
+/*
+ * To change this license header, choose License Headers in Project Properties.
+ * To change this template file, choose Tools | Templates
+ * and open the template in the editor.
+ */
+package javaapplication1;
+
+/**
+ *
+ * @author estudiante
+ */
+public class EstacionServicio {
+    private int nroProductos, max;
+    private Dispensador dispensador[];
+    
+    public EstacionServicio(int capacidad){
+        max = capacidad;
+        nroProductos = 0;
+        dispensador = new Dispensador[max+1];
+    }
+    public void crearDispensador(int posicionX){
+        dispensador[posicionX] = new Dispensador();
+        dispensador[posicionX].leer();
+        nroProductos++;
+    }
+    public void mostrar(){
+        System.out.println("----- DATOS DE LA ESTACION DE SERVICIO -----");
+        System.out.println("Numero de Productos de la Estacion de Servicio: "+nroProductos);
+        for(int i=1; i<=nroProductos; i++){
+            mostrar(i);
+        }
+    }
+    public void mostrar(int posDispensador){
+        CSCircular ccVehiculos = dispensador[posDispensador].getCCVehiculos();
+        System.out.println("**********************");
+        System.out.println("Producto: "+dispensador[posDispensador].nomProducto);
+        ccVehiculos.mostrar();
+    }
+    public void totalVendido(){
+        int sum=0;
+        for(int i=1; i<= nroProductos; i++){
+            CSCircular colaVehiculos = dispensador[i].getCCVehiculos();
+            int nroVehiculos = colaVehiculos.nElem();
+            for(int j=1; j<= nroVehiculos; j++){
+                Vehiculo objVehiculo = new Vehiculo();
+                objVehiculo = (Vehiculo) colaVehiculos.eliminar();
+                sum = sum + objVehiculo.getImporte();
+                colaVehiculos.adicionar(objVehiculo);
+            }
+        }
+        System.out.println("Total vendido: "+sum);
+    }
+    public void buscarPlacaConsumo(String placaX){
+        // i -> INDICADORES DE POSICION DEL DISPENSADOR
+        // j -> INDICADOR DE POSICION DE LA CCIRULAR DE VEHICULOS
+        boolean sw=true;
+        int i=1;
+        while(sw && i<=nroProductos){
+            CSCircular colaVehiculos = dispensador[i].getCCVehiculos();
+            int nroVehiculos = colaVehiculos.nElem();
+            int j=1;
+            while(sw && j<=nroVehiculos){
+                Vehiculo objVehiculo = new Vehiculo();
+                objVehiculo = (Vehiculo) colaVehiculos.eliminar();
+                if(objVehiculo.getNroPlaca().equals(placaX)){
+                    sw = false;
+                    System.out.println("La placa de numero: "+placaX+" cargo: "+dispensador[i].getNomProducto());
+                }
+                j++;
+                colaVehiculos.adicionar(objVehiculo);
+            }
+            i++;
+        }
+        if(sw)
+            System.out.println("La Placa de numero: "+placaX+" no se encuentra registrado en el sistema");
+    }
+}
