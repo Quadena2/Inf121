@@ -62,7 +62,8 @@ public class EstacionServicio {
             while(sw && j<=nroVehiculos){
                 Vehiculo objVehiculo = new Vehiculo();
                 objVehiculo = (Vehiculo) colaVehiculos.eliminar();
-                if(objVehiculo.getNroPlaca().equals(placaX)){
+                String placaAux = objVehiculo.getNroPlaca();
+                if(placaAux.equals(placaX)){
                     sw = false;
                     System.out.println("La placa de numero: "+placaX+" cargo: "+dispensador[i].getNomProducto());
                 }
@@ -73,5 +74,33 @@ public class EstacionServicio {
         }
         if(sw)
             System.out.println("La Placa de numero: "+placaX+" no se encuentra registrado en el sistema");
+    }
+    
+    // INCISO a)
+    public void incisoA(String nomProductoX){
+        boolean sw=true;
+        int i=1;
+        while(sw){
+            if((dispensador[i].getNomProducto()).equals(nomProductoX)){
+                sw = false;
+                Vehiculo objVehiculoAux = new Vehiculo();
+                CSCircular colaVehiculos = dispensador[i].getCCVehiculos();
+                int max=0;
+                int nroVehiculos = colaVehiculos.nElem();
+                for(int j=1; j<= nroVehiculos; j++){
+                    Vehiculo objVehiculo = new Vehiculo();
+                    objVehiculo = (Vehiculo) colaVehiculos.eliminar();
+                    if(objVehiculo.getImporte()>max){
+                        max = objVehiculo.getImporte();
+                        objVehiculoAux = new Vehiculo();
+                        objVehiculoAux = objVehiculo; 
+                    }
+                }
+                objVehiculoAux.mostrar();
+            }
+            else
+                System.out.println("El producto "+nomProductoX+" no esta registrado");
+        }
+        
     }
 }
