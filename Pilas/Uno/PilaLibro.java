@@ -1,12 +1,14 @@
 package PracGeneral2024.Pilas.Uno;
 
 
-public class PilaLibro extends EstructuraLineal {
-    protected int tope;
+public class Pila{
+    protected int tope, max;
+    protected Object v[];
 
-    public PilaLibro(int capacidad) {
-        super(capacidad);
+    public Pila(int capacidad) {
+        max = capacidad;
         tope = 0;
+        v = new Object[max+1];
     }
 
     public boolean esVacia() {
@@ -42,25 +44,25 @@ public class PilaLibro extends EstructuraLineal {
     }
 
     public void mostrar() {
-        //Cuaderno c1;
-        PilaLibro p1 = new PilaLibro(max);
+        Object objAux = null;
+        Pila pilaAux = new Pila(max);
         while (!esVacia()) {
-            Libro l1 = new Libro();
-            l1 = (Libro) eliminar();
-            l1.mostrar();
-            p1.adicionar(l1);
+            objAux = new Object();
+            objAux = (Object) eliminar();
+            objAux.mostrar();
+            pilaAux.adicionar(objAux);
         }
-        vaciar(p1);
+        vaciar(pilaAux);
     }
 
-    public void vaciar(PilaLibro pilaConDatos) {
+    public void vaciar(Pila pilaConDatos) {
         while (!pilaConDatos.esVacia())
             adicionar(pilaConDatos.eliminar());
     }
 
     public void llenar(int nroRegistro){
         for(int i=1; i<=nroRegistro; i++){
-            Libro c1 = new Libro();
+            Object c1 = new Object();
             c1.leer();
             adicionar(c1);
         }
