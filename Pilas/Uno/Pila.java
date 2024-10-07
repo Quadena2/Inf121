@@ -1,5 +1,3 @@
-package PracGeneral2024.Pilas.Uno;
-
 
 public class Pila{
     protected int tope, max;
