@@ -98,4 +98,11 @@ public class LDNormal extends LDoble{
             addEnd(dato);
         }
     }
+    public void setCabecera(NodoD q){
+        p = q;
+    }
+    public NodoD getCabecera(){
+        return p;
+    }
+
 }
